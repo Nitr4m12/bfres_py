@@ -1,0 +1,8 @@
+# Ignore FRES files meant for testing
+*.bfres
+*.sbfres
+*.bitemico
+*.sbitemico
+
+# Ignore py cache files
+*.pyc
