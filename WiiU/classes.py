@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from formats import *
+from typing import List
 
 class IndexGroup():
     def __init__(self, buffer, pos):
@@ -93,7 +94,13 @@ class FRES():
         class FSKL():
             # caFe SKeLeton
             def __init__(self, buffer, pos):
-                self.header = self.Header(buffer, pos)
+                self.header: self.Header = self.Header(buffer, pos)
+                self.bones: List[self.Bone] = []
+
+                for i in range(self.header.bone_count):
+                    self.bones.append(self.Bone(buffer, self.header.bones_offset + i * 0x40))
+
+                self.smooth_matrices = self.SmoothMatrix(self.header.smooth_index_count, buffer, self.header.smooth_matrix_offset)
 
             class Header():
                 def __init__(self, buffer, pos):
@@ -119,7 +126,10 @@ class FRES():
             # caFe SHaPe
             def __init__(self, buffer, pos):
                 self.header = self.Header(buffer, pos)
-
+                self.lod_mdls = []
+                for i in range(self.header.lod_mdl_count):
+                    self.lod_mdls.append(self.LoDModel(buffer, self.header.lod_mdls_offset + i * 0x1C))
+                # TODO: FSKLIndexArray, Visibility Group, IndexBuffer
             class Header():
                 def __init__(self, buffer, pos):
                     get_unpacked_data(self, "FSHPHeader", buffer, pos)
@@ -143,10 +153,18 @@ class FRES():
                     get_unpacked_data(self, "FVTXBuffer", buffer, pos)
 
         class FMAT():
+            # caFe MATerial
             def __init__(self, buffer, pos):
                 self.header = self.Header(buffer, pos)
+                self.tex_samplers = []
+                self.material_parameters = []
+                self.render_state = self.RenderState(buffer, self.header.render_state_offset)
+                self.shader_assign = self.ShaderAssign(buffer, self.header.shdr_assign_offset)
+                for i in range(self.header.tex_sampler_count):
+                    self.tex_samplers.append(self.TextureSampler(buffer, self.header.tex_samplers_offset + i * 0x18))
+                for j in range(self.header.mat_param_count):
+                    self.material_parameters.append(self.MaterialParameter(buffer, self.header.mat_params_offset + i * 0x14))
 
-            # caFe MATerial
             class Header():
                 def __init__(self, buffer, pos):
                     get_unpacked_data(self, "FMATHeader", buffer, pos)
@@ -186,8 +204,6 @@ class FRES():
             class ShaderAssign():
                 def __init__(self, buffer, pos):
                     get_unpacked_data(self, "ShaderAssign", buffer, pos)
-
-
 
     class FTEX(): #1
         # caFe TEXture
