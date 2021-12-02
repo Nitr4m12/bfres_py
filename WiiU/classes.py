@@ -164,7 +164,8 @@ class FRES():
                     self.tex_samplers.append(self.TextureSampler(buffer, self.header.tex_samplers_offset + i * 0x18))
                 for j in range(self.header.mat_param_count):
                     self.material_parameters.append(self.MaterialParameter(buffer, self.header.mat_params_offset + i * 0x14))
-
+                # TODO: Render Info
+                
             class Header():
                 def __init__(self, buffer, pos):
                     get_unpacked_data(self, "FMATHeader", buffer, pos)
