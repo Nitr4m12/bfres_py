@@ -165,7 +165,7 @@ class FRES():
                 for j in range(self.header.mat_param_count):
                     self.material_parameters.append(self.MaterialParameter(buffer, self.header.mat_params_offset + i * 0x14))
                 # TODO: Render Info
-                
+
             class Header():
                 def __init__(self, buffer, pos):
                     get_unpacked_data(self, "FMATHeader", buffer, pos)
@@ -214,7 +214,7 @@ class FRES():
         class Header():
             def __init__(self, buffer, pos):
                 get_unpacked_data(self, "FTEXHeader", buffer, pos)
-                for i in self.mipmaps_offsets:
+                for i in range(len(self.mipmaps_offsets)):
                     self.mipmaps_offsets[i] += self.mipmap_data_offset
 
     class FSKA(): #2
