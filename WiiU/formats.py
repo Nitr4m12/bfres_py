@@ -165,7 +165,7 @@ structs_fmts = {
         "mat_param_data_length":">H",       # 0x16 - uShort
         "raw_param_data_length":">H",       # 0x18 - uShort
         "usr_data_entry_count": ">H",       # 0x1A - uShort
-        "render_info_dict_count":">i",      # 0x1C - int
+        "render_info_dict_offset":">i",     # 0x1C - int
         "render_state_offset":  ">i",       # 0x20 - int
         "shdr_assign_offset":   ">i",       # 0x24 - int
         "tex_refs_offset":      ">i",       # 0x28 - int
