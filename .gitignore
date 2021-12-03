@@ -138,3 +138,4 @@ launch.json
 *.bitemico
 *.sbitemico
 WiiU/fres_tests WiiU.py
+Switch/fres_tests Switch.py
