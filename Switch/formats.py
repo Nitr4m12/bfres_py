@@ -526,6 +526,19 @@ structs_fmts = {
     "EmbeddedFiles": {
         "offset":               ">i",       # 0x00 - int
         "length":               ">I"        # 0x04 - uInt
+    },
+
+    "SwitchFSCN":   {
+        "magic":                "<4s",
+        "path":                 "<4s",
+        "camera_anims_offset":  "<Q",
+        "light_anims_offset":   "",
+        "fog_anims_offset":     "",
+        "user_data_offset":     "",
+        "user_data_count":      "",
+        "camera_anim_count":    "",
+        "light_anim_count":     "",
+        "fog_anim_count":       ""
     }
 
 }
